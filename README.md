@@ -44,5 +44,6 @@ Sistema para la Publicación de Convocatorias de Trabajo y Selección de Postula
   ./vendor/bin/sail npm install
   ./vendor/bin/sail npm run dev
   ./vendor/bin/sail php artisan key:generate
+  ./vendor/bin/sail php artisan storage:link
   ./vendor/bin/sail php artisan migrate --seed
 ```
