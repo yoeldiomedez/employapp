@@ -25,6 +25,14 @@ class DemoSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $this->clean_directory('announcement');
+        $this->clean_directory('document');
+        $this->clean_directory('profile');
+        $this->clean_directory('education');
+        $this->clean_directory('experience');
+        $this->clean_directory('training');
+
         $picf_file = $this->upload_file('profile', $this->uploaded_file('resources/assets/global/img/avatars/team9.jpg'));
         $picm_file = $this->upload_file('profile', $this->uploaded_file('resources/assets/global/img/avatars/team13.jpg'));
         $aff_file  = $this->upload_file('document', $this->uploaded_file('public/fut/DECLARACION_JURADA_PROCESO_CAS.pdf'));
@@ -105,5 +113,21 @@ class DemoSeeder extends Seeder
         $error        = null;
 
         return new UploadedFile($path, $originalName, $mimeType, $error, $test);
+    }
+
+    /**
+     * Create an UploadedFile object from absolute path
+     * 
+     * @param   string $path
+     * @param   bool   $recursive default false
+     * @return  void
+     */
+    function clean_directory($path, $recursive = false)
+    {
+        $storage = Storage::disk(config('app.disk'));
+
+        foreach($storage->files($path, $recursive) as $file) {
+            $storage->delete($file);
+        }
     }
 }
