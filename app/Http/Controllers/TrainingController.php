@@ -22,6 +22,7 @@ class TrainingController extends Controller
     {
         $trainings = Training::with('country')
                             ->where('user_id', Auth::id())
+                            ->orderBy('end_date', 'desc')
                             ->paginate(10);
 
         return view('trainings.index', compact('trainings'));

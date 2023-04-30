@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::with('user')->paginate(10);
+        $companies = Company::with('user')->orderBy('id', 'desc')->paginate(10);
 
         return view('business.index', compact('companies'));
     }

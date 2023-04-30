@@ -20,9 +20,9 @@ class RecordController extends Controller
     public function index()
     {    
         $applicant   = Applicant::with(['department', 'province', 'district'])->where('user_id', Auth::id())->firstOrFail();
-        $education   = Education::with(['degree', 'country'])->where('user_id', Auth::id())->get();
-        $trainings   = Training::with('country')->where('user_id', Auth::id())->get();
-        $experiences = Experience::where('user_id', Auth::id())->get();
+        $education   = Education::with(['degree', 'country'])->where('user_id', Auth::id())->orderBy('degree_date', 'desc')->get();
+        $trainings   = Training::with('country')->where('user_id', Auth::id())->orderBy('end_date', 'desc')->get();
+        $experiences = Experience::where('user_id', Auth::id())->orderBy('end_date', 'desc')->orderBy('start_date', 'desc')->get();
 
         return view('records.index', compact('applicant', 'education', 'trainings', 'experiences'));
     }
@@ -35,7 +35,7 @@ class RecordController extends Controller
     public function see()
     {
         $user          = User::findOrFail(Auth::id());
-        $announcements = $user->announcements()->paginate(10);
+        $announcements = $user->announcements()->latest()->paginate(10);
 
         return view('records.see', compact('announcements'));
     }
@@ -50,9 +50,9 @@ class RecordController extends Controller
     {
         $user        = User::findOrFail($id);
         $applicant   = Applicant::with(['department', 'province', 'district'])->where('user_id', $id)->firstOrFail();
-        $education   = Education::with(['degree', 'country'])->where('user_id', $id)->get();
-        $trainings   = Training::with('country')->where('user_id', $id)->get();
-        $experiences = Experience::where('user_id', $id)->get();
+        $education   = Education::with(['degree', 'country'])->where('user_id', $id)->orderBy('degree_date', 'desc')->get();
+        $trainings   = Training::with('country')->where('user_id', $id)->orderBy('end_date', 'desc')->get();
+        $experiences = Experience::where('user_id', $id)->orderBy('end_date', 'desc')->orderBy('start_date', 'desc')->get();
 
         return view('records.show', compact('user', 'applicant', 'education', 'trainings', 'experiences'));
     }

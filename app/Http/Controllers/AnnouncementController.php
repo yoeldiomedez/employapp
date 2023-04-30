@@ -39,9 +39,10 @@ class AnnouncementController extends Controller
             case 3: // admin business
                 $company       = Company::where('user_id', Auth::id())->firstOrFail();
                 $announcements = Announcement::where('company_id', $company->id)
-                                         ->whereYear('start_date', $year)
+                                        ->whereYear('start_date', $year)
                                         ->whereMonth('start_date', $month)
-                                          ->paginate(5);
+                                        ->orderBy('id', 'desc')
+                                        ->paginate(5);
 
                 return view('announcements.index', compact('announcements', 'year', 'month'));
             break;
@@ -58,7 +59,9 @@ class AnnouncementController extends Controller
 
                     $query->whereIn('career_id', $careerids);
 
-                })->paginate(5);
+                })
+                ->latest()
+                ->paginate(5);
                 
                 return view('announcements.index', compact('announcements', 'year', 'month'));
             break;

@@ -19,7 +19,10 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Experience::where('user_id', Auth::id())->paginate(10);
+        $experiences = Experience::where('user_id', Auth::id())
+                                ->orderBy('end_date', 'desc')
+                                ->orderBy('start_date', 'desc')
+                                ->paginate(10);
 
         return view('experiences.index', compact('experiences'));
     }

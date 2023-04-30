@@ -24,6 +24,7 @@ class EducationController extends Controller
     {
         $education = Education::with(['degree', 'country'])
                        ->where('user_id', Auth::id())
+                       ->orderBy('degree_date', 'desc')
                        ->paginate(10);
         
         return view('education.index', compact('education'));
