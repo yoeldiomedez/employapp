@@ -24,16 +24,16 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="portlet light">
             <div class="portlet-body">
-                {!! Form::open(['route' => 'roles.store']) !!}
-                    
+                {{ html()->form()->action(route('roles.store'))->open() }}
+
                     @include('roles.partials.form')
 
                     <div class="form-group">
-                        {{ Form::submit('Registrar', ['class' => 'btn btn-primary']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Registrar')->class(['btn', 'btn-primary']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}  
             </div>
         </div>
     </div>

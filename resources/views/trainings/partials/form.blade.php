@@ -1,89 +1,99 @@
 <div class="form-group">
-    {{ Form::label('description', 'Capacitación') }}
+    {{ html()->label('Capacitación', 'description') }}
     @if(!empty($training->description) && $training->description != null)
-        {{ Form::text('description', $training->description, ['class' => 'form-control uppercase', 'required' => 'true', 'maxlength' => '60']) }}
+        {{ html()->text('description', $training->description)->required()->maxlength(60)->class(['form-control', 'uppercase']) }}
     @else
-        {{ Form::text('description', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('description')->required()->maxlength(60)->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('start_date', 'Fecha de Inicio') }}
+    {{ html()->label('Fecha de Inicio', 'start_date') }}
     @if(!empty($training->start_date) && $training->start_date != null)
         <div id="startDatePicker" class="input-group date" data-link-field="start_date">
-            {!! Form::text(null, Carbon\Carbon::parse($training->start_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->input('text')
+                ->value(Carbon\Carbon::parse($training->start_date)->translatedFormat('d F Y'))
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+            }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('start_date', $training->start_date, ['id' => 'start_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'start_date', $training->start_date)->id('start_date')->required() }}
     @else
         <div id="startDatePicker" class="input-group date" data-link-field="start_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('start_date', null, ['id' => 'start_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'start_date')->id('start_date')->required() }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('end_date', 'Fecha de Finalización') }}
+    {{ html()->label('Fecha de Finalización', 'end_date') }}
     @if(!empty($training->end_date) && $training->end_date != null)
         <div id="endDatePicker" class="input-group date" data-link-field="end_date">
-            {!! Form::text(null, Carbon\Carbon::parse($training->end_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->input('text')
+                ->value(Carbon\Carbon::parse($training->end_date)->translatedFormat('d F Y'))
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+            }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('end_date', $training->end_date, ['id' => 'end_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'end_date', $training->end_date)->id('end_date')->required() }}
     @else
         <div id="endDatePicker" class="input-group date" data-link-field="end_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('end_date', null, ['id' => 'end_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'end_date')->id('end_date')->required() }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('institution', 'Institución') }}
+    {{ html()->label('Institución', 'institution') }}
     @if(!empty($training->institution) && $training->institution != null)
-        {{ Form::text('institution', $training->institution, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('institution', $training->institution)->required()->class(['form-control', 'uppercase'])}}
     @else
-        {{ Form::text('institution', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('institution')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('city', 'Ciudad') }}
+    {{ html()->label('Ciudad', 'city') }}
     @if(!empty($training->city) && $training->city != null)
-        {{ Form::text('city', $training->city, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('city', $training->city)->required()->class(['form-control', 'uppercase']) }}
     @else
-        {{ Form::text('city', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('city')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('country_id', 'País') }}
-    {{ Form::select(
-        'country_id', 
-        $countries,
-        (!empty($training->country_id) && $training->country_id != null) ? $training->country_id : null, 
-        ['id' =>'countrySelector', 'placeholder' => 'Seleccione un País', 'class' => 'form-control', 'required' => 'required']
-        ) 
+    {{ html()->label('País', 'country_id') }}
+    {{ html()->select(
+            'country_id', 
+            $countries,
+            (!empty($training->country_id) && $training->country_id != null) ? $training->country_id : null  
+        )->required()->id('countrySelector')->placeholder('Seleccione un País')->class(['form-control'])
     }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('hours', 'Horas Lectivas') }}
+    {{ html()->label('Horas Lectivas', 'hours') }}
     @if(!empty($training->hours) && $training->hours != null)
-        {{ Form::number('hours', $training->hours, ['class' => 'form-control', 'required' => 'true', 'min' => '0']) }}
+        {{ html()->input('number', 'hours', $training->hours)->required()->attributes(['min' => 0])->class(['form-control']) }}
+        
     @else
-        {{ Form::number('hours', null, ['class' => 'form-control', 'required' => 'true', 'min' => '0']) }}
+        {{ html()->input('number', 'hours')->required()->attributes(['min' => 0])->class(['form-control']) }}
     @endif
 </div>
 
-{{ Form::label('file', 'Archivo') }}
+{{ html()->label('Archivo', 'file') }}
 
 @if(!empty($training->file) && $training->file != null) 
     <div class="form-group">
@@ -99,7 +109,7 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('file', ['accept' => '.pdf']) }} 
+            {{ html()->file('file')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>

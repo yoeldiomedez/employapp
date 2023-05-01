@@ -22,9 +22,9 @@ class DocumentUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'affidavit_file' => ['required', 'file', 'mimes:pdf', 'max:1536'],
-            'dni_file'       => ['required', 'file', 'mimes:pdf', 'max:1536'],
-            'vacancy_file'   => ['required', 'file', 'mimes:pdf', 'max:1536'],
+            'affidavit_file' => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
+            'dni_file'       => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
+            'vacancy_file'   => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
             'aditional_file' => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
         ];
     }

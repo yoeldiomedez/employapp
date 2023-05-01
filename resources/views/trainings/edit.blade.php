@@ -30,21 +30,17 @@
                         </ul>
                     </div>
                 @endif
+                
+                {{ html()->form('PUT', route('trainings.update', $training->id))->acceptsFiles()->open() }}  
 
-                {!! Form::open([
-                    'route'  => ['trainings.update', $training->id],
-                    'method' => 'PUT',
-                    'files'  => true
-                ]) !!}
-                    
                     @include('trainings.partials.form')
 
-                <div class="form-group">
-                    {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                    {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
-                </div>
+                    <div class="form-group">
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
+                    </div>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

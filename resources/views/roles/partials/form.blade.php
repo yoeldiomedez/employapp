@@ -1,7 +1,7 @@
 <h3 class="form-section"></h3>
 <div class="form-group">
-    {{ Form::label('name', 'Nombre') }}
-    {{ Form::text('name', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+    {{ html()->label('Nombre', 'name') }}
+    {{ html()->input('text', 'name')->required()->class(['form-control', 'uppercase']) }}
 </div>
 
 <h3 class="form-section">Permisos</h3>
@@ -10,7 +10,10 @@
     <div class="mt-checkbox-list">
         @foreach($permissions as $permission)
             <label class="mt-checkbox"> {{ $permission->name }} <em>({{ $permission->guard_name ? : 'N/A' }})</em>
-                {{ Form::checkbox('permissions[]', $permission->id, null) }}
+                {{ html()->checkbox('permissions[]')
+                        ->value($permission->id)
+                        ->checked(isset($role) ? in_array($permission->id, $role->permissions->pluck('id')->toArray()) : false) 
+                }}
                 <span></span>
             </label>
         @endforeach

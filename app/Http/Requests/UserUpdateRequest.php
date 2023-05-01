@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
             'name'             => ['required', 'string', 'max:255'],
             'paternal_surname' => ['required', 'string', 'max:255'],
             'maternal_surname' => ['required', 'string', 'max:255'],
-            'birth_date'       => ['required', 'date', 'before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->translatedFormat('d F Y')],
+            'birth_date'       => ['required', 'date', 'before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('d-m-Y')],
             'gender'           => ['required', 'in:F,M'],
             'email'            => ['string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
         ];

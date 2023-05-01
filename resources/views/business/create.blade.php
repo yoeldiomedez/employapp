@@ -29,30 +29,30 @@
             @endif
 
             <div class="portlet-body">
-                {!! Form::open(['route' => 'business.store']) !!}
+                {{ html()->form()->action(route('business.store'))->open() }}
                     
                     @include('business.partials.form')
 
                     <div class="form-group">
                         <label class="control-label">Contraseña</label>
-                        {{ Form::password('password', ['class' => 'form-control', 'required' => 'true']) }}
+                        {{ html()->password('password')->required()->class(['form-control']) }}
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label">Confirmar Contraseña</label>
-                        {{ Form::password('password_confirmation', ['class' => 'form-control', 'required' => 'true']) }}
+                        {{ html()->password('password_confirmation')->required()->class(['form-control']) }}
                     </div>
 
                     <div class="form-group">
-                        {{ Form::label('birth_date', 'Sexo') }}
+                        {{ html()->label('Sexo', 'gender') }}
                         <div class="mt-radio-inline">
                             <label class="mt-radio">
-                                {{ Form::radio('gender', 'F') }}
+                                {{ html()->radio('gender', old('gender') == 'F' ? true : false, 'F')->required() }}
                                 FEMENINO
                                 <span></span>
                             </label>
                             <label class="mt-radio">
-                                {{ Form::radio('gender', 'M') }}
+                                {{ html()->radio('gender', old('gender') == 'M' ? true : false, 'M')->required() }}
                                 MASCULINO
                                 <span></span>
                             </label>
@@ -60,11 +60,11 @@
                     </div>
 
                     <div class="form-group">
-                        {{ Form::submit('Registrar', ['class' => 'btn btn-primary']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Registrar')->class(['btn', 'btn-primary']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}  
             </div>
         </div>
     </div>

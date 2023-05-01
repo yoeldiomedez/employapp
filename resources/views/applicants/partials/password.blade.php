@@ -1,25 +1,25 @@
 <!-- CHANGE PASSWORD TAB -->
 <div class="tab-pane" id="tab_1_3">
-    {!! Form::open([
-        'route'  => ['applicants.change'],
-        'method' => 'PATCH'
-    ]) !!}
+    {{ html()->form('PATCH', route('applicants.change'))->open() }}
+
         <div class="form-group">
             <label class="control-label">Contraseña Actual</label>
-            {{ Form::password('current_password', ['class' => 'form-control', 'required' => 'true']) }}
+            {{ html()->password('current_password')->required()->class(['form-control']) }}
         </div>
+        
         <div class="form-group">
             <label class="control-label">Nueva Contraseña</label>
-            {{ Form::password('password', ['class' => 'form-control', 'required' => 'true']) }}
+            {{ html()->password('password')->required()->class(['form-control']) }}
         </div>
+        
         <div class="form-group">
             <label class="control-label">Confirmar Contraseña</label>
-            {{ Form::password('password_confirmation', ['class' => 'form-control', 'required' => 'true']) }}
+            {{ html()->password('password_confirmation')->required()->class(['form-control']) }}
         </div>
         <div class="margin-top-10">
-            {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-            {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+            {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+            {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
         </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 </div>
 <!-- END CHANGE PASSWORD TAB -->

@@ -29,41 +29,35 @@
             @endif
 
             <div class="portlet-body">
-                    {!! Form::model(
-                        $company,
-                        [
-                            'route'  => ['business.update', $company->id],
-                            'method' => 'PUT'
-                        ] 
-                    ) !!}
+                {{ html()->modelForm($company, 'PUT', route('business.update', $company->id))->open() }}
 
                     @include('business.partials.form')
 
                     <div class="form-group">
                         <label class="control-label">Contraseña Actual</label>
-                        {{ Form::password('current_password', ['class' => 'form-control']) }}
+                        {{ html()->password('current_password')->class(['form-control']) }}
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label">Nueva Contraseña</label>
-                        {{ Form::password('password', ['class' => 'form-control']) }}
+                        {{ html()->password('password')->class(['form-control']) }}
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label">Confirmar Contraseña</label>
-                        {{ Form::password('password_confirmation', ['class' => 'form-control']) }}
+                        {{ html()->password('password_confirmation')->class(['form-control']) }}
                     </div>
 
                     <div class="form-group">
-                        {{ Form::label('birth_date', 'Sexo') }}
+                        {{ html()->label('Sexo', 'gender') }}
                         <div class="mt-radio-inline">
                             <label class="mt-radio">
-                                {{ Form::radio('gender', 'F', $company->user->gender === 'F' ? true : false) }}
+                                {{ html()->radio('gender')->value('F')->checked($company->user->gender === 'F') }}
                                 FEMENINO
                                 <span></span>
                             </label>
                             <label class="mt-radio">
-                                {{ Form::radio('gender', 'M', $company->user->gender === 'M' ? true : false) }}
+                                {{ html()->radio('gender')->value('M')->checked($company->user->gender === 'M') }}
                                 MASCULINO
                                 <span></span>
                             </label>
@@ -71,13 +65,13 @@
                     </div>
                     
                     <div class="form-group">
-                        {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
 
-                    {!! Form::close() !!}
-                </div>
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>
+</div>
 @endsection

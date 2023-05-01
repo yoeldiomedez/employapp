@@ -1,6 +1,6 @@
 <div class="form-group">
-    {{ Form::label('company', 'Entidad o Empresa Solicitante') }}
-    {{ Form::text('company', $company->business_name, ['class' => 'form-control uppercase', 'readonly' => 'true']) }}
+    {{ html()->label('Entidad o Empresa Solicitante', 'company') }}
+    {{ html()->text('company', $company->business_name)->isReadonly()->class(['form-control', 'uppercase'])}}
 </div>
 
 @if(!empty($announcement->careers))
@@ -12,7 +12,7 @@
 @endif
 
 <div class="form-group">
-    {{ Form::label('start_date', 'Escuela(s) Profesional(es) Solicitada(s)') }}    
+    {{ html()->label('Escuela(s) Profesional(es) Solicitada(s)', 'start_date') }}    
     <select name="career_ids[]" id="careers" class="form-control" multiple required> 
         <optgroup label="Escuelas Profesionales de Ingenierías">
             @foreach ($careers as $career)
@@ -57,49 +57,49 @@
 </div>
 
 <div class="form-group">
-    {{ Form::label('start_date', 'Fecha de Inicio') }}
+    {{ html()->label('Fecha de Inicio', 'start_date') }}
     @if(!empty($announcement->start_date) && $announcement->start_date != null)
         <div id="startDatePicker" class="input-group date" data-link-field="start_date">
-            {!! Form::text(null, Carbon\Carbon::parse($announcement->start_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->value(Carbon\Carbon::parse($announcement->start_date)->translatedFormat('d F Y'))->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('start_date', $announcement->start_date, ['id' => 'start_date', 'required'=>'required']); !!}
+        {{ html()->hidden('start_date', $announcement->start_date)->required()->id('start_date') }}
     @else
         <div id="startDatePicker" class="input-group date" data-link-field="start_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('start_date', null, ['id' => 'start_date', 'required'=>'required']); !!}
+        {{ html()->hidden('start_date')->required()->id('start_date') }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('end_date', 'Fecha de Finalización') }}
+    {{ html()->label('Fecha de Finalización', 'end_date') }}
     @if(!empty($announcement->end_date) && $announcement->end_date != null)
         <div id="endDatePicker" class="input-group date" data-link-field="end_date">
-            {!! Form::text(null, Carbon\Carbon::parse($announcement->end_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->value(Carbon\Carbon::parse($announcement->end_date)->translatedFormat('d F Y'))->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('end_date', $announcement->end_date, ['id' => 'end_date', 'required'=>'required']); !!}
+        {{ html()->hidden('end_date', $announcement->end_date)->required()->id('end_date') }}
     @else
         <div id="endDatePicker" class="input-group date" data-link-field="end_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('end_date', null, ['id' => 'end_date', 'required'=>'required']); !!}
+        {{ html()->hidden('end_date')->required()->id('end_date') }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('position', 'Cargo') }}
-    {{ Form::text('position', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+    {{ html()->label('Cargo', 'position') }}
+    {{ html()->text('position')->required()->class(['form-control', 'uppercase']) }}
 </div>
 
-{{ Form::label('bases', 'Bases') }}
+{{ html()->label('Bases', 'bases') }}
 
 @if(!empty($announcement->bases) && $announcement->bases != null) 
     <div class="form-group">
@@ -115,13 +115,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('bases', ['accept' => '.pdf', 'required' => 'required']) }} 
+            {{ html()->file('bases')->required()->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('annexes', 'Anexos') }}
+{{ html()->label('Anexos', 'annexes') }}
 
 @if(!empty($announcement->annexes) && $announcement->annexes != null) 
     <div class="form-group">
@@ -137,13 +137,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('annexes', ['accept' => '.pdf']) }} 
+            {{ html()->file('annexes')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('partial_results', 'Resultado de Evaluación Curricular') }}
+{{ html()->label('Resultado de Evaluación Curricular', 'partial_results') }}
 
 @if(!empty($announcement->partial_results) && $announcement->partial_results != null) 
     <div class="form-group">
@@ -159,13 +159,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('partial_results', ['accept' => '.pdf']) }} 
+            {{ html()->file('partial_results')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('final_results', 'Resultado Final') }}
+{{ html()->label('Resultado Final', 'final_results') }}
 
 @if(!empty($announcement->final_results) && $announcement->final_results != null) 
     <div class="form-group">
@@ -181,7 +181,7 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('final_results', ['accept' => '.pdf']) }} 
+            {{ html()->file('final_results')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>

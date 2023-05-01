@@ -31,16 +31,16 @@
                     </div>
                 @endif
 
-                {!! Form::open(['route' => 'education.store', 'files' => true]) !!}
-                    
+                {{ html()->form()->action(route('education.store'))->acceptsFiles()->open() }}  
+
                     @include('education.partials.form')
 
                     <div class="form-group">
-                        {{ Form::submit('Registrar', ['class' => 'btn btn-primary']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Registrar')->class(['btn', 'btn-primary']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-{{ Form::label('affidavit_file', 'Declaración Jurada') }} 
+{{ html()->label('Declaración Jurada', 'affidavit_file') }} 
 <a href="{{ asset('fut/DECLARACION_JURADA_PROCESO_CAS.pdf') }}" target="_blank"> 
     (Ver / Descargar FUT)
 </a>
@@ -16,13 +16,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('affidavit_file', ['accept' => '.pdf', 'required' => 'required']) }} 
+            {{ html()->file('affidavit_file')->required(($document->affidavit_file == null) ? true : false)->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('vacancy_file', 'Declaración Jurada Elección de Vacante') }}
+{{ html()->label('Declaración Jurada Elección de Vacante', 'vacancy_file') }}
 <a href="{{ asset('fut/DECLARACION_JURADA_POSTULANTE_VACANTE.pdf') }}" target="_blank"> 
     (Ver / Descargar FUT)
 </a>
@@ -40,13 +40,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('vacancy_file', ['accept' => '.pdf', 'required' => 'required']) }} 
+            {{ html()->file('vacancy_file')->required(($document->vacancy_file == null ? true : false))->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('dni_file', 'Copia del DNI') }}
+{{ html()->label('Copia del DNI', 'dni_file') }}
 
 @if(!empty($document->dni_file) && $document->dni_file != null) 
     <div class="form-group">
@@ -62,13 +62,13 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('dni_file', ['accept' => '.pdf', 'required' => 'required']) }} 
+            {{ html()->file('dni_file')->required(($document->dni_file == null ? true : false))->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
 @endif
 
-{{ Form::label('aditional_file', 'Declaración Jurada Adicional') }}
+{{ html()->label('Declaración Jurada Adicional', 'aditional_file') }}
 
 @if(!empty($document->aditional_file) && $document->aditional_file != null) 
     <div class="form-group">
@@ -84,7 +84,7 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('aditional_file', ['accept' => '.pdf']) }} 
+            {{ html()->file('aditional_file')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>

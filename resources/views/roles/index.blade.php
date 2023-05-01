@@ -52,14 +52,11 @@
 
                                 @can('roles.destroy')
                                 <td class="text-center">
-                                    {!! Form::open([
-                                        'route' => ['roles.destroy', $role->id],
-                                        'method' => 'DELETE'
-                                    ]) !!}
+                                    {{ html()->form('DELETE', route('roles.destroy', $role->id) )->open() }}
                                         <button class="btn red btn-outline">
                                             <i class="fa fa-trash"></i>
                                         </button>
-                                    {!! Form::close() !!}
+                                    {{ html()->form()->close() }}
                                 </td>
                                 @endcan 
                             </tr>

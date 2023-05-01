@@ -1,57 +1,70 @@
-@if ($user->roles[0]->id === 2) 
+@if (in_array(2, $user->roles->pluck('id')->toArray())) 
 <div class="form-group">
-    {{ Form::label('careers', 'Escuela(s) Profesinal(es)') }}
-    {{ Form::select('careers[]', $careers, $selected, ['id' => 'careers', 'class' => 'form-control', 'multiple' => 'multiple', 'required' => 'required']) }}
+    {{ html()->label('Escuela(s) Profesinal(es)', 'careers') }}
+    {{ html()->multiselect('careers[]', $careers, $selected)
+            ->required()
+            ->id('careers')
+            ->class(['form-control'])
+    }}
 </div>
 @endif
 
 <div class="form-group">
-    {{ Form::label('dni', 'DNI') }}
-    {{ Form::number('dni', null, ['class' => 'form-control', 'min' => 0, 'max'=> 99999999, 'required' => 'required']) }}
+    {{ html()->label('DNI', 'dni') }}
+    {{ html()->input('number', 'dni')
+            ->required()
+            ->attributes(['min' => 0, 'max' => 99999999])
+            ->class(['form-control']) 
+    }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('name', 'Nombres') }}
-    {{ Form::text('name', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+    {{ html()->label('Nombres', 'name') }}
+    {{ html()->text('name')->required()->class(['form-control']) }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('paternal_surname', 'Apellido Paterno') }}
-    {{ Form::text('paternal_surname', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+    {{ html()->label('Apellido Paterno', 'paternal_surname') }}
+    {{ html()->text('paternal_surname')->required()->class(['form-control']) }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('maternal_surname', 'Apellido Materno') }}
-    {{ Form::text('maternal_surname', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+    {{ html()->label('Apellido Materno', 'maternal_surname') }}
+    {{ html()->text('maternal_surname')->required()->class(['form-control']) }}
 </div>
 
-@if ($user->roles[0]->id === 1) 
+@if (in_array(1, $user->roles->pluck('id')->toArray())) 
     <div class="form-group">
-        {{ Form::label('email', 'E-Mail') }}
-        {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ html()->label('E-Mail', 'email') }}
+        {{ html()->email('email')->required()->class(['form-control']) }}
     </div>   
 @endif
  
 <div class="form-group">
-    {{ Form::label('birth_date', 'Fecha de Nacimiento') }}
+    {{ html()->label('Fecha de Nacimiento', 'birth_date') }}
     <div id="birthDatePicker" class="input-group date" data-link-field="birth_date">
-        {!! Form::text(null, ($user->birth_date === null) ? null : Carbon\Carbon::parse($user->birth_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'readonly'=>'true', 'required' => 'required']) !!}
+        {{ html()->input('text')
+                ->value(($user->birth_date === null) ? null : Carbon\Carbon::parse($user->birth_date)->translatedFormat('d F Y'))
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+        }}
         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
         <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
     </div>
-    {!! Form::hidden('birth_date', $user->birth_date, ['id' => 'birth_date', 'required' => 'required']) !!}
+    {{ html()->input('hidden', 'birth_date', $user->birth_date)->id('birth_date')->required() }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('birth_date', 'Sexo') }}
+    {{ html()->label('Sexo', 'gender') }}
     <div class="mt-radio-inline">
         <label class="mt-radio">
-            {{ Form::radio('gender', 'F') }}
+            {{ html()->radio('gender')->value('F')->checked($user->gender === 'F') }}
             FEMENINO
             <span></span>
         </label>
         <label class="mt-radio">
-            {{ Form::radio('gender', 'M') }}
+            {{ html()->radio('gender')->value('M')->checked($user->gender === 'M') }}
             MASCULINO
             <span></span>
         </label>
@@ -64,7 +77,10 @@
     <div class="mt-checkbox-list">
         @foreach($roles as $role)
             <label class="mt-checkbox"> {{ $role->name }}
-                {{ Form::checkbox('roles[]', $role->id, null) }}
+                {{ html()->checkbox('roles[]')
+                        ->value($role->id)
+                        ->checked(in_array($role->id, $user->roles->pluck('id')->toArray()))
+                }}
                 <span></span>
             </label>
         @endforeach

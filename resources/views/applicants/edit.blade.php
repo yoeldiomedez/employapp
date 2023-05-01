@@ -35,12 +35,7 @@
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">{{ Auth::user()->name }} {{ Auth::user()->paternal_surname }} {{ Auth::user()->maternal_surname }}</div>
                     <div class="profile-usertitle-job">
-                        @foreach (Auth::user()->careers as $career)
-                            @php
-                                $resultstr[] = $career->name 
-                            @endphp
-                        @endforeach
-                        {{ implode(' / ',$resultstr) }}
+                        {{ Auth::user()->careers->implode('name', ' / ') }}
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->

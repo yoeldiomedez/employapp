@@ -1,86 +1,111 @@
 <div class="form-group">
-    {{ Form::label('business_name', 'Nombre de la Entidad o Empresa') }}
-    {{ Form::text('business_name', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+    {{ html()->label('Nombre de la Entidad o Empresa', 'business_name') }}
+    {{ html()->text('business_name')->required()->class(['form-control', 'uppercase']) }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('ruc', 'RUC') }}
-    {{ Form::number('ruc', null, ['class' => 'form-control', 'min' => 0, 'required' => 'true']) }}
+    {{ html()->label('RUC', 'ruc') }}
+    {{ html()->input('number', 'ruc')
+            ->required()
+            ->attributes(['min' => 0])
+            ->class(['form-control']) 
+    }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('address', 'Dirección') }}
-    {{ Form::text('address', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+    {{ html()->label('Dirección', 'address') }}
+    {{ html()->text('address')->required()->class(['form-control', 'uppercase']) }}
 </div>
 
 <div class="form-group">
-    {{ Form::label('phone_or_mobile', 'Número Celular / Teléfono') }}
-    {{ Form::number('phone_or_mobile', null, ['class' => 'form-control', 'min' => 0, 'required' => 'true']) }}
+    {{ html()->label('Número Celular / Teléfono', 'phone_or_mobile') }}
+    {{ html()->input('number', 'phone_or_mobile')
+            ->required()
+            ->attributes(['min' => 0])
+            ->class(['form-control']) 
+    }}
 </div>
 
 <h3 class="form-section">Representante</h3> <br>
 
 <div class="form-group">
-    {{ Form::label('dni', 'DNI') }}
+    {{ html()->label('DNI', 'dni') }}
     @if(!empty($company->user->dni) && $company->user->dni != null)
-        {{ Form::number('dni', $company->user->dni, ['class' => 'form-control', 'min' => 0, 'max'=> 99999999, 'required' => 'required']) }}
+        {{ html()->input('number', 'dni', $company->user->dni)
+            ->required()
+            ->attributes(['min' => 0, 'max' => 99999999])
+            ->class(['form-control']) 
+        }}
     @else
-        {{ Form::number('dni', null, ['class' => 'form-control', 'min' => 0, 'max'=> 99999999, 'required' => 'required']) }}
+        {{ html()->input('number', 'dni')
+            ->required()
+            ->attributes(['min' => 0, 'max' => 99999999])
+            ->class(['form-control']) 
+        }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('name', 'Nombres') }}
+    {{ html()->label('Nombres', 'name') }}
     @if(!empty($company->user->name) && $company->user->name != null)
-        {{ Form::text('name', $company->user->name, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('name', $company->user->name)->required()->class(['form-control', 'uppercase']) }}
     @else
-        {{ Form::text('name', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('name')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('paternal_surname', 'Apellido Paterno') }}
+    {{ html()->label('Apellido Paterno', 'paternal_surname') }}
     @if(!empty($company->user->paternal_surname) && $company->user->paternal_surname != null)
-        {{ Form::text('paternal_surname', $company->user->paternal_surname, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('paternal_surname', $company->user->paternal_surname)->required()->class(['form-control', 'uppercase']) }}
     @else
-        {{ Form::text('paternal_surname', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('paternal_surname')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('maternal_surname', 'Apellido Materno') }}
+    {{ html()->label('Apellido Materno', 'maternal_surname') }}
     @if(!empty($company->user->maternal_surname) && $company->user->maternal_surname != null)
-        {{ Form::text('maternal_surname', $company->user->maternal_surname, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('maternal_surname', $company->user->maternal_surname)->required()->class(['form-control', 'uppercase']) }}
     @else
-        {{ Form::text('maternal_surname', null, ['class' => 'form-control uppercase', 'required' => 'required']) }}
+        {{ html()->text('maternal_surname')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('birth_date', 'Fecha de Nacimiento') }}
+    {{ html()->label('Fecha de Nacimiento', 'birth_date') }}
     @if(!empty($company->user->birth_date) && $company->user->birth_date != null)
         <div id="birthDatePicker" class="input-group date" data-link-field="birth_date">
-            {!! Form::text(null, Carbon\Carbon::parse($company->user->birth_date)->translatedFormat('d F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->input('text')
+                ->value(($company->user->birth_date === null) ? null : Carbon\Carbon::parse($company->user->birth_date)->translatedFormat('d F Y'))
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+            }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('birth_date', $company->user->birth_date, ['id' => 'birth_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'birth_date', $company->user->birth_date)->id('birth_date')->required() }}
     @else
         <div id="birthDatePicker" class="input-group date" data-link-field="birth_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->input('text')
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+            }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('birth_date', null, ['id' => 'birth_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'birth_date')->id('birth_date')->required() }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('email', 'E-Mail') }}
+    {{ html()->label('E-Mail', 'email') }}
     @if(!empty($company->user->email) && $company->user->email != null)
-        {{ Form::text('email', $company->user->email, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ html()->email('email', $company->user->email)->required()->class(['form-control']) }}
     @else
-        {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
+        {{ html()->email('email')->required()->class(['form-control']) }}
     @endif
 </div> 
 

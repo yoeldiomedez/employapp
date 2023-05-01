@@ -22,11 +22,22 @@ class AnnouncementStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date'      => ['required', 'date', 'after:yesterday'],
-            'end_date'        => ['required', 'date', 'after:start_date'],
-            'position'        => ['required', 'string', 'max:255'],
-            'bases'           => ['required', 'file', 'mimes:pdf', 'max:1536'],
-            'annexes'         => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
+            'start_date' => ['nullable', 'date', 'after:yesterday'],
+            'end_date'   => ['nullable', 'date', 'after:start_date'],
+            'position'   => ['nullable', 'string', 'max:255'],
+            'bases'      => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
+            'annexes'    => ['nullable', 'file', 'mimes:pdf', 'max:1536'],
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'start_date.after' => 'El campo Fecha de Inicio debe ser una fecha igual o posterior a hoy.',
+            'end_date.after'   => 'El campo Fecha de Finalización debe ser una fecha posterior a la Fecha de Inicio.',
         ];
     }
 }

@@ -90,11 +90,17 @@
             <label class="control-label visible-ie8 visible-ie9">{{ __('Fecha de Nacimiento') }}</label> 
     
             <div id="birthDatePicker" class="input-group date" data-link-field="birth_date">
-                {!! Form::text(null, (old('birth_date') == null) ? null : Carbon\Carbon::parse(old('birth_date'))->translatedFormat('d F Y'), ['class' => 'form-control', 'readonly'=>'true', 'placeholder' => 'Fecha de Nacimiento', 'required' => 'required']) !!}
+                {{ html()->input('text')
+                         ->value((old('birth_date') == null) ? null : Carbon\Carbon::parse(old('birth_date'))->translatedFormat('d F Y'))
+                         ->required()
+                         ->isReadonly()
+                         ->placeholder('Fecha de Nacimiento')
+                         ->class(['form-control'])
+                }}
                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
             </div>
-            {!! Form::hidden('birth_date', old('birth_date'), ['id' => 'birth_date', 'required' => 'required']) !!}
+            {{ html()->input('hidden', 'birth_date', old('birth_date'))->id('birth_date')->required() }}
             @if ($errors->has('birth_date'))
                 <span class="help-block text-center bold"> {{ $errors->first('birth_date') }} </span>
             @endif
@@ -124,12 +130,12 @@
         <div class="form-group {{ $errors->has('gender') ? 'has-error' : '' }}">
             <div class="mt-radio-inline text-center">
                 <label class="mt-radio">
-                    {{ Form::radio('gender', 'F', old('gender') == 'F' ? true : false, ['required' => 'true']) }}
+                    {{ html()->radio('gender', old('gender') == 'F' ? true : false, 'F')->required() }}
                     FEMENINO
                     <span></span>
                 </label>
                 <label class="mt-radio">
-                    {{ Form::radio('gender', 'M', old('gender') == 'M' ? true : false, ['required' => 'true']) }}
+                    {{ html()->radio('gender', old('gender') == 'M' ? true : false, 'M')->required() }}
                     MASCULINO
                     <span></span>
                 </label>

@@ -36,9 +36,9 @@ class UserController extends Controller
         $roles       = Role::get();
 
         $careers = array(
-            'Escuelas Profesionales de Ingenierías' => $engineering,
-            'Escuelas Profesionales de Biomédicas'  => $biomedical,
-            'Escuelas Profesionales de Sociales'    => $social
+            'Escuelas Profesionales de Ingenierías' => $engineering->toArray(),
+            'Escuelas Profesionales de Biomédicas'  => $biomedical->toArray(),
+            'Escuelas Profesionales de Sociales'    => $social->toArray()
         );
 
         $selected = $user->careers->pluck('id');

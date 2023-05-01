@@ -31,23 +31,16 @@
                     </div>
                 @endif
 
-                {!! Form::model(
-                    $announcement,
-                    [
-                        'route'  => ['announcements.update', $announcement->id],
-                        'method' => 'PUT',
-                        'files'  => true
-                    ] 
-                ) !!}
-
+                {{ html()->modelForm($announcement, 'PUT', route('announcements.update', $announcement->id))->acceptsFiles()->open() }} 
+                
                     @include('announcements.partials.form')
 
-                <div class="form-group">
-                    {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                    {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
-                </div>
+                    <div class="form-group">
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
+                    </div>
 
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>

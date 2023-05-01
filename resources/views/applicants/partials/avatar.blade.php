@@ -1,11 +1,8 @@
 <!-- CHANGE AVATAR TAB -->
 <div class="tab-pane" id="tab_1_2">
     <p>Fotografia</p>
-    {!! Form::open([
-        'route'  => ['applicants.upload'],
-        'method' => 'PATCH',
-        'files'  => true
-    ]) !!}
+    {{ html()->form('PATCH', route('applicants.upload'))->acceptsFiles()->open() }}
+
         <div class="form-group">
             <div class="fileinput fileinput-new" data-provides="fileinput">
                 <div class="fileinput-new thumbnail" style="width: 260px; height: 260px;">
@@ -20,7 +17,7 @@
                     <span class="btn default btn-file">
                         <span class="fileinput-new"> Seleccionar </span>
                         <span class="fileinput-exists"> Cambiar </span>
-                        {{ Form::file('profile_picture', ['accept' => '.png, .jpg, .jpeg', 'required' => 'required']) }} 
+                        {{ html()->file('profile_picture')->required()->acceptImage() }}
                     </span>
                     <a href="JavaScript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Quitar </a>
                 </div>
@@ -31,9 +28,10 @@
             </div>
         </div>
         <div class="margin-top-10">
-            {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-            {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+            {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+            {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
         </div>
-    {!! Form::close() !!}
+        
+    {{ html()->form()->close() }}
 </div>
 <!-- END CHANGE AVATAR TAB -->

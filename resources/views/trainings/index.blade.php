@@ -69,14 +69,11 @@
 
                             @can('trainings.destroy')
                             <td class="text-center">
-                                {!! Form::open([
-                                    'route' => ['trainings.destroy', $training->id],
-                                    'method' => 'DELETE'
-                                ]) !!}
-                                    <button class="btn red btn-outline">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                {!! Form::close() !!}
+                                {{ html()->form('DELETE', route('trainings.destroy', $training->id) )->open() }}
+                                        <button class="btn red btn-outline">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                {{ html()->form()->close() }}
                             </td>
                             @endcan 
                         </tr>

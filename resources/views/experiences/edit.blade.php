@@ -31,20 +31,16 @@
                     </div>
                 @endif
 
-                {!! Form::open([
-                    'route'  => ['experiences.update', $experience->id],
-                    'method' => 'PUT',
-                    'files'  => true
-                ]) !!}
-                    
+                {{ html()->form('PUT', route('experiences.update', $experience->id))->acceptsFiles()->open() }} 
+
                     @include('experiences.partials.form')
 
-                <div class="form-group">
-                    {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                    {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
-                </div>
+                    <div class="form-group">
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
+                    </div>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

@@ -5,10 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">¿Desea Postular? </h4>
             </div>
-            {!! Form::open([
-                'route' => ['announcements.apply', $announcement->id],
-                'method' => 'POST'
-            ]) !!}
+            {{ html()->form()->action(route('announcements.apply', $announcement->id))->open() }}
             <div class="modal-body">
                 PROCESO CAS № {{ str_pad($announcement->id,3,"0",STR_PAD_LEFT) }}-{{Carbon\Carbon::parse($announcement->posted_date)->format('Y') }}
             </div>
@@ -18,7 +15,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
-            {!! Form::close() !!}
+            {{ html()->form()->close() }}
         </div>
         <!-- /.modal-content -->
     </div>

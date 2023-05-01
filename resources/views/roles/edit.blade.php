@@ -24,25 +24,18 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="portlet light">
             <div class="portlet-body">
-                
-                    {!! Form::model(
-                        $role,
-                        [
-                            'route'  => ['roles.update', $role->id],
-                            'method' => 'PUT'
-                        ] 
-                    ) !!}
+                {{ html()->modelForm($role, 'PUT', route('roles.update', $role->id))->open() }}
 
                     @include('roles.partials.form')
-                    
+    
                     <div class="form-group">
-                        {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
-
-                    {!! Form::close() !!}
-                </div>
+                    
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>
+</div>
 @endsection

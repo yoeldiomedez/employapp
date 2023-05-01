@@ -1,7 +1,6 @@
-{!! Form::open(['route' => 'announcements.index', 'method' => 'GET', 'class' => 'form-inline']) !!} 
-
+{{ html()->form('GET', route('announcements.index'))->class(['form-inline'])->open() }}
     <div class="form-group">
-        {{ Form::select(
+        {{ html()->select(
             'month', 
             [
                 '01' => 'ENERO', 
@@ -17,25 +16,25 @@
                 '11' => 'NOVIEMBRE',
                 '12' => 'DICIEMBRE'
             ], 
-            $month,
-            ['class' => 'form-control selectpicker', 'required' => 'true']
-        ) }}
+            $month
+            )->required()->class(['form-control', 'selectpicker'])
+        }}
     </div>
 
     <div class="form-group">
-        {{ Form::select(
+        {{ html()->select(
             'year', 
             [
                 date('Y')-1 => date('Y')-1,
                 date('Y') => date('Y')
             ], 
-            $year,
-            ['class' => 'form-control selectpicker', 'required' => 'true']
-        ) }}    
+            $year
+            )->required()->class(['form-control', 'selectpicker'])
+        }}    
     </div>
 
     <button type="submit" class="btn purple btn-outline">
         Buscar <i class="fa fa-search"></i>
     </button>
 
-{!! Form::close() !!}
+{{ html()->form()->close() }}

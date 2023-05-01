@@ -1,33 +1,31 @@
 <div class="form-group">
-    {{ Form::label('degree_id', 'Título o Grado') }}
-    
-    {{ Form::select(
+    {{ html()->label('Título o Grado', 'degree_id') }}
+    {{ html()->select(
             'degree_id', 
             $degrees,
             (!empty($education->degree_id) && $education->degree_id != null) ? $education->degree_id : null, 
-            ['id' =>'degreeSelector', 'placeholder' => 'Seleccione un Título o Grado', 'class' => 'form-control selectpicker', 'required' => 'required']
-        ) 
+        )->required()->id('degreeSelector')->placeholder('Seleccione un Título o Grado')->class(['form-control', 'selectpicker']) 
     }}
 </div>
 
 <div id="description" class="form-group">
     @if(!empty($education->description) && $education->description != null)
-    {{ Form::label('description', 'Descripción') }}
-    {{ Form::text('description', $education->description, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+    {{ html()->label('Descripción', 'description') }}
+    {{ html()->text('description', $education->description)->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('specialty', 'Especialidad') }}
+    {{ html()->label('Especialidad', 'specialty') }}
     @if(!empty($education->specialty) && $education->specialty != null)
-    {{ Form::text('specialty', $education->specialty, ['class' => 'form-control uppercase', 'required' => 'true', 'maxlength' => '60']) }}
+    {{ html()->text('specialty', $education->specialty)->required()->maxlength(60)->class(['form-control', 'uppercase']) }}
     @else
-    {{ Form::text('specialty', null, ['class' => 'form-control uppercase', 'required' => 'true', 'maxlength' => '60']) }}
+    {{ html()->text('specialty')->required()->maxlength(60)->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('specialty', '¿No tiene Título o Grado?') }}
+    {{ html()->label('¿No tiene Título o Grado?', 'specialty') }}
     <label class="mt-checkbox"> 
         @if(!empty($education->degree_status) && $education->degree_status != null )
         <input type="checkbox" id="noDegree" name="lDegree" value="degree" checked />
@@ -38,70 +36,73 @@
     </label> 
 </div>
 
-
 <div id="dateDegreeStatus" class="form-group">
-    {{ Form::label('degree_date', 'Fecha de Expedición del Título o Grado') }}
+    {{ html()->label('Fecha de Expedición del Título o Grado', 'degree_date') }}
 @if(!empty($education->degree_date) && $education->degree_date != null)
     <div id="degreeDatePicker" class="input-group date" data-link-field="degree_date">
-        {!! Form::text(null, Carbon\Carbon::parse($education->degree_date)->translatedFormat('F Y'), ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+        {{ html()->input('text')
+                ->value(Carbon\Carbon::parse($education->degree_date)->translatedFormat('F Y'))
+                ->required()
+                ->isReadonly()
+                ->class(['form-control'])
+        }}
         <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
         <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
     </div>
-    {!! Form::hidden('degree_date', $education->degree_date, ['id' => 'degree_date', 'required'=>'required']); !!}
+    {{ html()->input('hidden', 'degree_date', $education->degree_date)->id('degree_date')->required() }}
 @else
     @if(!empty($education->degree_status) && $education->degree_status != null)
-        {{ Form::label('degree_status', 'Especificar') }}
-        {{ Form::select(
-            'degree_status', 
-            [
-                'E' => 'ES EGRESADO', 
-                'T' => 'EN TRAMITE',
-                'C' => 'ESTUDIO EN CURSO'
-            ], 
-            $education->degree_status,
-            ['placeholder' => 'Seleccione una Opción', 'class' => 'form-control selectpicker', 'required' => 'true']
-        ) }}
+        {{ html()->label('Especificar', 'degree_status') }}
+        {{ html()->select(
+                'degree_status', 
+                [
+                    'E' => 'ES EGRESADO', 
+                    'T' => 'EN TRAMITE',
+                    'C' => 'ESTUDIO EN CURSO'
+                ], 
+                $education->degree_status
+            )->required()->placeholder('Seleccione una Opción')->class(['form-control', 'selectpicker']) 
+        }}
     @else
         <div id="degreeDatePicker" class="input-group date" data-link-field="degree_date">
-            {!! Form::text(null, null, ['class' => 'form-control', 'required'=>'required', 'readonly'=>'true']); !!}
+            {{ html()->text()->required()->isReadonly()->class(['form-control']) }}
             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
         </div>
-        {!! Form::hidden('degree_date', null, ['id' => 'degree_date', 'required'=>'required']); !!}
+        {{ html()->input('hidden', 'degree_date')->id('degree_date')->required() }}
     @endif
 @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('college', 'Universidad') }}
+    {{ html()->label('Universidad', 'college') }}
     @if(!empty($education->college) && $education->college != null)
-    {{ Form::text('college', $education->college, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('college', $education->college)->required()->class(['form-control', 'uppercase']) }}
     @else
-    {{ Form::text('college', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('college')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('city', 'Ciudad') }}
+    {{ html()->label('Ciudad', 'city') }}
     @if(!empty($education->city) && $education->city != null)
-    {{ Form::text('city', $education->city, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('city', $education->city)->required()->class(['form-control', 'uppercase']) }}
     @else
-    {{ Form::text('city', null, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->text('city')->required()->class(['form-control', 'uppercase']) }}
     @endif
 </div>
 
 <div class="form-group">
-    {{ Form::label('country_id', 'País') }}
-    {{ Form::select(
+    {{ html()->label('País', 'country_id') }}
+    {{ html()->select(
             'country_id', 
             $countries,
-            (!empty($education->country_id) && $education->country_id != null) ? $education->country_id : null, 
-            ['id' =>'countrySelector', 'placeholder' => 'Seleccione un País', 'class' => 'form-control', 'required' => 'required']
-        ) 
+            (!empty($education->country_id) && $education->country_id != null) ? $education->country_id : null
+        )->required()->id('countrySelector')->placeholder('Seleccione un País')->class(['form-control'])
     }}
 </div>
 
-{{ Form::label('degree_file', 'Archivo') }}
+{{ html()->label('Archivo', 'degree_file') }}
 
 @if(!empty($education->degree_file) && $education->degree_file != null) 
 <div class="form-group">
@@ -117,7 +118,7 @@
     <span class="input-group-addon btn btn-default btn-file">
         <span class="fileinput-new">Seleccionar</span>
         <span class="fileinput-exists">Cambiar</span>
-        {{ Form::file('degree_file', ['accept' => '.pdf']) }} 
+        {{ html()->file('degree_file')->accept('.pdf') }}
     </span>
     <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
 </div>

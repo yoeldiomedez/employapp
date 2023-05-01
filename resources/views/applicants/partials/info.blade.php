@@ -1,29 +1,33 @@
 <!-- PERSONAL INFO TAB -->
 <div class="tab-pane active" id="tab_1_1">
-    {!! Form::open([
-                'route'  => ['applicants.update', $applicant->id],
-                'method' => 'PUT',
-                'files'  => true
-    ]) !!}
+    {{ html()->form('PUT', route('applicants.update', $applicant->id))->acceptsFiles()->open() }}
 
     <div class="form-group">
-        {{ Form::label('ruc', 'RUC') }}
-        {{ Form::number('ruc', $applicant->ruc, ['class' => 'form-control', 'min' => 0, 'required' => 'true']) }}
+        {{ html()->label('RUC', 'ruc') }}
+        {{ html()->input('number', 'ruc', $applicant->ruc)
+                ->required()
+                ->attributes(['min' => 0])
+                ->class(['form-control']) 
+        }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('cellphone_number', 'Número Celular') }}
-        {{ Form::number('cellphone_number', $applicant->cellphone_number, ['class' => 'form-control', 'min' => 0, 'required' => 'true']) }}
+        {{ html()->label('Número Celular', 'cellphone_number') }}
+        {{ html()->input('number', 'cellphone_number', $applicant->cellphone_number)
+                ->required()
+                ->attributes(['min' => 0])
+                ->class(['form-control']) 
+        }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('email', 'E-Mail') }}
-        {{ Form::text('email', Auth::user()->email, ['class' => 'form-control', 'required' => 'true']) }}
+        {{ html()->label('E-Mail', 'email') }}
+        {{ html()->email('email', Auth::user()->email)->required()->class(['form-control']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('marital_status', 'Estado Civil') }}
-        {{ Form::select(
+        {{ html()->label('Estado Civil', 'marital_status') }}
+        {{ html()->select(
             'marital_status', 
             [
                 'S' => 'SOLTERO(A)', 
@@ -31,66 +35,39 @@
                 'D' => 'DIVORCIADO(A)',
                 'V' => 'VIUDO(A)'
             ], 
-            $applicant->marital_status,
-            ['placeholder' => 'Seleccione un Estado', 'class' => 'form-control selectpicker', 'required' => 'true']
-        ) }}
+            $applicant->marital_status
+            )->required()->placeholder('Seleccione un estado civil')->class(['form-control', 'selectpicker'])
+        }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('address', 'Dirección') }}
-        {{ Form::text('address', $applicant->address, ['class' => 'form-control uppercase', 'required' => 'true']) }}
+        {{ html()->label('Dirección', 'address') }}
+        {{ html()->text('address', $applicant->address)->required()->class(['form-control', 'uppercase']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('department_id', 'Departamento') }}
-        {!! Form::select(
-            'department_id', 
-            [],
-            null, 
-            [
-                'id' => 'departments', 
-                'class' => 'form-control', 
-                'required' => 'true',
-                'placeholder' => 'Busque y Seleccione un Departamento'
-            ]
-        )!!}
+        {{ html()->label('Departamento', 'department_id') }}
+        {{ html()->select('department_id')->required()->id('departments')->placeholder('Busque y Seleccione un Departamento')->class(['form-control']) }}
     </div>
     <div class="form-group">
-        {{ Form::label('province_id', 'Provincia') }}
-        {!! Form::select(
-            'province_id', 
-            [], 
-            null, 
-            [
-                'id' => 'provinces', 
-                'class' => 'form-control', 
-                'required' => 'true',
-                'placeholder' => 'Busque y Seleccione una Provincia'
-            ]
-        )!!}
+        {{ html()->label('Provincia', 'province_id') }}
+        {{ html()->select('province_id')->required()->id('provinces')->placeholder('Busque y Seleccione una Provincia')->class(['form-control']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('district_id', 'Distrito') }}
-        {!! Form::select(
-            'district_id', 
-            [], 
-            null, 
-            [
-                'id' => 'districts', 
-                'class' => 'form-control', 
-                'required' => 'true',
-                'placeholder' => 'Busque y Seleccione un Distrito'
-            ]
-        )!!}
+        {{ html()->label('Distrito', 'district_id') }}
+        {{ html()->select('district_id')->required()->id('districts')->placeholder('Busque y Seleccione un Distrito')->class(['form-control']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('tuition_number', '№ de Colegiatura (solo si aplica)') }}
-        {{ Form::number('tuition_number', $applicant->tuition_number, ['class' => 'form-control', 'min' => 0]) }}
+        {{ html()->label('№ de Colegiatura (solo si aplica)', 'tuition_number') }}
+        {{ html()->input('number', 'tuition_number', $applicant->tuition_number)
+                ->attributes(['min' => 0])
+                ->class(['form-control']) 
+        }}
     </div>
 
-    {{ Form::label('ffaa_file', '¿Perteneció a las FF. AA.?') }}
+    {{ html()->label('¿Perteneció a las FF. AA.?', 'ffaa_file') }}
     @if(!$applicant->ffaa_file)
     <div id="FFAAInputFile" class="fileinput fileinput-new input-group" data-provides="fileinput">
         <div class="form-control" data-trigger="fileinput">
@@ -99,7 +76,7 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('ffaa_file', ['accept' => '.pdf']) }}
+            {{ html()->file('ffaa_file')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
@@ -111,7 +88,7 @@
     </div>
     @endif
 
-    {{ Form::label('disability_file', '¿Es usted una persona con discapacidad?') }}
+    {{ html()->label('¿Es usted una persona con discapacidad?', 'disability_file') }}
     @if(!$applicant->disability_file)
     <div id="disabilityInputFile" class="fileinput fileinput-new input-group" data-provides="fileinput">
         <div class="form-control" data-trigger="fileinput">
@@ -120,7 +97,7 @@
         <span class="input-group-addon btn btn-default btn-file">
             <span class="fileinput-new">Seleccionar</span>
             <span class="fileinput-exists">Cambiar</span>
-            {{ Form::file('disability_file', ['accept' => '.pdf']) }} 
+            {{ html()->file('disability_file')->accept('.pdf') }}
         </span>
         <a href="JavaScript:;" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Quitar</a>
     </div>
@@ -132,9 +109,9 @@
     </div>
     @endif
     <div class="form-group">
-        {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
     </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 </div>
 <!-- END PERSONAL INFO TAB -->

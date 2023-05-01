@@ -29,22 +29,16 @@
             @endif
 
             <div class="portlet-body">
-                    {!! Form::model(
-                        $user,
-                        [
-                            'route'  => ['users.update', $user->id],
-                            'method' => 'PUT'
-                        ] 
-                    ) !!}
-
+                    {{ html()->modelForm($user, 'PUT', route('users.update', $user->id))->open() }}
+                    
                     @include('users.partials.form')
                     
                     <div class="form-group">
-                        {{ Form::submit('Actualizar', ['class' => 'btn btn-warning']) }}
-                        {{ Form::reset('Cancelar', ['class' => 'btn btn-default']) }}
+                        {{ html()->input('submit')->value('Actualizar')->class(['btn', 'btn-warning']) }}
+                        {{ html()->input('reset')->value('Cancelar')->class(['btn', 'btn-default']) }}
                     </div>
 
-                    {!! Form::close() !!}
+                    {{ html()->closeModelForm() }}
                 </div>
             </div>
         </div>
