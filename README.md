@@ -24,8 +24,8 @@ Sistema para la Publicación de Convocatorias de Trabajo y Selección de Postula
 
 ## Despliegue
 
-- WSL
-- Docker
+- WSL 2
+- Docker Desktop
 
 ``` bash
 # Enviroment

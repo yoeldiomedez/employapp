@@ -21,14 +21,14 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="Sistema de Convocatorias y Selección de Postulantes" name="description" />
+        <meta content="Sistema para la Publicación de Convocatorias de Trabajo y Selección de Postulantes" name="description" />
         <meta content="Yoel Diomedez" name="author" />
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
         @section('styles')
         <!-- BEGIN GLOBAL MANDATORY THEME PAGE LEVEL STYLES -->
         <link href="{{ asset('css/main.css') }}" rel="stylesheet"/>
         <!-- END GLOBAL MANDATORY THEME PAGE LEVEL STYLES -->
         @show
+        <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <!-- END HEAD -->
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-fixed">

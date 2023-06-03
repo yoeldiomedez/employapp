@@ -12,7 +12,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
 License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
 -->
-
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <!-- BEGIN HEAD -->
     <head>
@@ -22,7 +21,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="Metronic Admin Template" name="description" />
+        <meta content="Sistema para la Publicación de Convocatorias de Trabajo y Selección de Postulantes" name="description" />
         <meta content="Yoel Diomedez" name="author" />
         @section('styles')
         <!-- BEGIN GLOBAL MANDATORY THEME PAGE LEVEL STYLES -->

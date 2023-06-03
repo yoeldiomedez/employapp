@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
- // Auth Layout (Default Bootstrap UI)
+ // App Layout (Default Bootstrap UI)
  mix.js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css');
 
