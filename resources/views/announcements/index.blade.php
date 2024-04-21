@@ -192,7 +192,7 @@
                 </div>
                 <div class="row">
                     <div class="col-ls-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                        {{ $announcements->onEachSide(1)->links() }}
+                        {{ $announcements->links() }}
                     </div>
                 </div>
             </div>

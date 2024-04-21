@@ -42,7 +42,8 @@ class AnnouncementController extends Controller
                                         ->whereYear('start_date', $year)
                                         ->whereMonth('start_date', $month)
                                         ->orderBy('id', 'desc')
-                                        ->paginate(5);
+                                        ->simplePaginate(5)
+                                        ->withQueryString();
 
                 return view('announcements.index', compact('announcements', 'year', 'month'));
             break;
@@ -61,7 +62,8 @@ class AnnouncementController extends Controller
 
                 })
                 ->latest()
-                ->paginate(5);
+                ->simplePaginate(5)
+                ->withQueryString();
                 
                 return view('announcements.index', compact('announcements', 'year', 'month'));
             break;
